@@ -77,6 +77,19 @@ caracteresRandom carac retorno i | i > 0 = do
 						| i <= 0 = do
 							return retorno
 
+geraMatriz :: Int -> [[String]]
+geraMatriz x = replicate x (replicate x "")
+
+insereElementoMatriz :: Int -> Int -> Int -> String -> [[String]] -> [[String]] -> [[String]]
+insereElementoMatriz tamanho linha coluna elem matriz retorno | tamanho > 0 && linha /= tamanho && (retorno !! 0) == [] = insereElementoMatriz (tamanho-1) linha coluna elem matriz (((matriz !! (linha-1)) ++ (retorno !! 0)):[])
+														| tamanho > 0 && linha /= tamanho = insereElementoMatriz (tamanho-1) linha coluna elem matriz ((matriz !! (linha-1)):retorno)
+														| tamanho > 0 && linha == tamanho && retorno !! 0 == [] = insereElementoMatriz (tamanho-1) linha coluna elem matriz (((insereElementoVetor (coluna-1) elem (matriz !! (linha-1))) ++ (retorno !! 0)):[])
+										   				| tamanho > 0 && linha == tamanho = insereElementoMatriz (tamanho-1) linha coluna elem matriz ((insereElementoVetor (coluna-1) elem (matriz !! (linha-1))):retorno)
+										   				| tamanho <= 0 = retorno
+
+insereElementoVetor :: Int -> String -> [String] -> [String]
+insereElementoVetor pos elem array = ((take pos array) ++ [elem] ++ (drop (pos+1) array))
+
 matriz :: Int -> String
 matriz 1 = matrizRepresentacao (replicate 4 (replicate 4 "X")) 1
 matriz 2 = matrizRepresentacao (replicate 6 (replicate 6 "X")) 1
