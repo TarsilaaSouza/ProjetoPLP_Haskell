@@ -114,7 +114,7 @@ jogo tamanho nivel paresEcontrados matrizUsuario matrizSistema tempo = do
 	let xD =  intToDouble x
 	let g = xD / 2
 	let pares = round g
-	let tempoParada = fromIntegral 5 :: NominalDiffTime
+	let tempoParada = fromIntegral 180 :: NominalDiffTime
 	tempoDoJogo <- getCurrentTime
 	let tempoPercorrido = (diffUTCTime tempoDoJogo tempo)
 	if (paresEcontrados /= pares && tempoParada > tempoPercorrido) then do
